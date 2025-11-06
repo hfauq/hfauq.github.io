@@ -54,39 +54,31 @@ The site will be available at `http://localhost:5173`
 
 ### Adding Photos to the Gallery
 
-1. Add your photos to the `public/photos` folder
+1. Add your photos to the `public/images` folder
 2. Update the `photos` array in `src/components/PhotoGallery.jsx`:
 
 ```jsx
 const photos = [
-  { location: "Biarritz, France", image: "/photos/biarritz.jpg" },
-  { location: "Pyrénées, France", image: "/photos/pyrenees.jpg" },
+  { location: "Biarritz, France", image: "/images/biarritz.jpg" },
+  { location: "Pyrénées, France", image: "/images/pyrenees.jpg" },
   // ... add more photos
 ]
-```
-
-3. Update the image rendering:
-```jsx
-<img 
-  src={photo.image} 
-  alt={photo.location}
-  className="w-full h-full object-cover"
-/>
 ```
 
 ### Updating Content
 
 - **Work Experience**: Edit `src/App.jsx` - look for the "Work Section" comment
 - **Podcast Appearances**: Edit `src/App.jsx` - look for the "Podcast Section" comment
-- **About Info**: Edit `src/App.jsx` - look for the "About Section" comment
+- **Hero Content**: Edit `src/components/Hero.jsx`
 - **Footer**: Edit `src/components/Footer.jsx`
 
 ### Changing Colors
 
 The color scheme is defined in `tailwind.config.js`. Current colors:
+- Primary text: `#EDEDED` (dark mode)
+- Secondary text: `#9D9DA4`
 - Gray text: `#74747B`
-- Light gray: `#CAC5D3`
-- Divider gray: `#E2E4E9`
+- Links: `#0099ff` (light) / `#7B92ED` (dark)
 
 ## 📦 Building for Production
 
@@ -106,23 +98,9 @@ npm run preview
 
 ## 🌐 Deploying to GitHub Pages
 
-### Initial Setup
-
-1. Create a new repository on GitHub named `hfauq.github.io`
-2. Push your code to GitHub:
-
-```bash
-git init
-git add .
-git commit -m "Initial commit"
-git branch -M main
-git remote add origin https://github.com/hfauq/hfauq.github.io.git
-git push -u origin main
-```
-
 ### Deploy
 
-Once your code is on GitHub, deploy with:
+Deploy with:
 
 ```bash
 npm run deploy
@@ -133,34 +111,20 @@ This command will:
 2. Push the built files to a `gh-pages` branch
 3. GitHub Pages will automatically serve your site
 
-### Connecting Your Custom Domain (hfauq.com)
-
-After deploying:
-
-1. Go to your repository settings on GitHub
-2. Navigate to **Pages** section
-3. Under "Custom domain", enter: `hfauq.com`
-4. Save the changes
-
-Then, in your domain registrar (where you bought hfauq.com):
-
-5. Add these DNS records:
-   - Type: `A` → Name: `@` → Value: `185.199.108.153`
-   - Type: `A` → Name: `@` → Value: `185.199.109.153`
-   - Type: `A` → Name: `@` → Value: `185.199.110.153`
-   - Type: `A` → Name: `@` → Value: `185.199.111.153`
-   - Type: `CNAME` → Name: `www` → Value: `hfauq.github.io`
-
-6. Wait for DNS propagation (can take up to 24-48 hours, but usually faster)
+Your site will be available at: `https://hfauq.github.io/`
 
 ## 📁 Project Structure
 
 ```
 hfauq.github.io/
 ├── public/              # Static files
+│   ├── images/         # Image assets
+│   ├── Logo_*.png      # Favicon files
+│   └── og_image.jpg    # Open Graph image
 ├── src/
 │   ├── components/      # React components
 │   │   ├── Hero.jsx
+│   │   ├── Location.jsx
 │   │   ├── Section.jsx
 │   │   ├── WorkItem.jsx
 │   │   ├── PodcastItem.jsx
@@ -177,11 +141,12 @@ hfauq.github.io/
 
 ## 🎨 Design Philosophy
 
-This website follows a minimalist design inspired by the original hfauq.com:
-- Clean, two-column layout on desktop
+This website follows a minimalist design:
+- Clean, stacked layout with headers above content
+- 800px fixed content width
 - Mobile-responsive (stacks vertically on small screens)
 - Simple typography with Inter font
-- Subtle hover effects
+- Dark mode support based on system preferences
 - Focus on content over decoration
 
 ## 📄 License
