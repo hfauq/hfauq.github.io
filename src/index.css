@@ -1,0 +1,18 @@
+@import "tailwindcss";
+
+/* Custom styles for the website */
+body {
+  font-family: 'Inter', 'Inter Placeholder', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Ensure proper box-sizing */
+* {
+  box-sizing: border-box;
+}
+
+/* Reset margins for headings and paragraphs */
+h1, h2, h3, h4, h5, h6, p {
+  margin: 0;
+}
