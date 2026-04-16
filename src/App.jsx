@@ -47,7 +47,7 @@ function App() {
               <PodcastItem
                 title="Just Now Possible with Teresa Torres (English)"
                 url="https://www.producttalk.org/building-todoist-ramble-how-doist-turned-voice-braindumps-into-real-time-task-capture/"
-                date="2026"
+                date="Apr 2026"
               />
               <PodcastItem 
                 title="Growth Makers (French)"
