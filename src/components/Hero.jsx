@@ -44,15 +44,15 @@ function Hero() {
           }}
         >
           I'm currently shaping products at{' '}
-          <a 
-            href="https://doist.com/" 
-            target="_blank" 
+          <a
+            href="https://todoist.com/"
+            target="_blank"
             rel="noopener noreferrer"
             className="text-[#0099ff] dark:text-[#7B92ED] hover:underline dark:hover:text-[#8CA0ED]"
           >
-            Doist
+            Todoist
           </a>
-          {' '}where we build productivity software for the new era of online, remote, and async first work.
+          {' '}where we empower people with simple yet powerful productivity tools.
         </p>
 
         {/* Fourth Paragraph - Second Body Text */}
@@ -65,16 +65,25 @@ function Hero() {
             marginBottom: 0
           }}
         >
-          You can find me on{' '}
-          <a 
-            href="https://twitter.com/hfauq" 
-            target="_blank" 
+          Find me on{' '}
+          <a
+            href="https://x.com/hfauq"
+            target="_blank"
             rel="noopener noreferrer"
             className="text-[#0099ff] dark:text-[#7B92ED] hover:underline dark:hover:text-[#8CA0ED]"
           >
-            Twitter
+            X
           </a>
-          {' '}where I (sometimes) talk about product or on{' '}
+          {' '}and{' '}
+          <a
+            href="https://linkedin.com/in/hfauq"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[#0099ff] dark:text-[#7B92ED] hover:underline dark:hover:text-[#8CA0ED]"
+          >
+            LinkedIn
+          </a>
+          {' '}where I (sometimes) talk about product, and{' '}
           <a 
             href="https://instagram.com/hfauq" 
             target="_blank" 
@@ -83,7 +92,7 @@ function Hero() {
           >
             Instagram
           </a>
-          {' '}where I share my photographic observations.
+          {' '}where I share what I see behind the camera.
         </p>
       </div>
     </section>
@@ -91,4 +100,3 @@ function Hero() {
 }
 
 export default Hero
-

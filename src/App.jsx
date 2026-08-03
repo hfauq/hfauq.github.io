@@ -25,14 +25,14 @@ function App() {
           <Section label="Work">
             <div className="space-y-[24px]">
               <WorkItem 
-                company="Doist"
-                companyUrl="https://doist.com"
+                company="Todoist"
+                companyUrl="https://todoist.com/"
                 role="Product Manager"
                 period="2020 —"
               />
               <WorkItem 
-                company="Doist"
-                companyUrl="https://doist.com"
+                company="Todoist"
+                companyUrl="https://todoist.com/"
                 role="Growth Manager"
                 period="2016 — 2020"
               />
