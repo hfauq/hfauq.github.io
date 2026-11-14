@@ -10,6 +10,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#FBF9F5" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#11141D" media="(prefers-color-scheme: dark)" />
+    <!-- Theme before first paint: the visitor's saved choice, else their system setting -->
+    <script>
+      (() => {
+        const colors = { light: '#FBF9F5', dark: '#11141D' }
+        const saved = () => { try { return localStorage.getItem('theme') } catch { return null } }
+        const media = matchMedia('(prefers-color-scheme: dark)')
+        const apply = (theme) => {
+          document.documentElement.dataset.theme = theme
+          document.querySelectorAll('meta[name="theme-color"]').forEach((m) => m.setAttribute('content', colors[theme]))
+        }
+        apply(saved() || (media.matches ? 'dark' : 'light'))
+        media.addEventListener('change', (e) => { if (!saved()) apply(e.matches ? 'dark' : 'light') })
+      })()
+    </script>
     <title>Hugo Fauquenoi</title>
     
     <!-- Inter Font from Google Fonts -->
@@ -35,8 +49,8 @@
     <meta property="twitter:title" content="Hugo Fauquenoi">
     <meta property="twitter:description" content="I've been building products at Todoist since 2015. We empower people with simple yet powerful productivity tools. I love surfing, photography, Kaytranada, and okonomiyaki.">
     <meta property="twitter:image" content="https://hfauq.com/og_image.jpg">
-    <script type="module" crossorigin src="/assets/index-DZjX87yu.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-rDTmV1zo.css">
+    <script type="module" crossorigin src="/assets/index-q4tDsbp_.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-Dyq1UBBw.css">
   </head>
   <body>
     <div id="root"></div>
