@@ -1,86 +1,55 @@
+import { photos } from '../photos'
+
 /**
  * PhotoGallery Component
- * Displays a vertical stack of photos with location captions
+ * Full-width justified gallery: every row fills the width at an even height and each
+ * photo keeps its own aspect ratio, so vertical and horizontal shots mix without cropping.
+ * On hover, shows the place, camera and settings, plus a film-style date stamp.
  */
+
+// "2026-10-09" -> "'26 10 09", like the date imprint on a film point-and-shoot
+function dateStamp(date) {
+  const [year, month, day] = date.split('-')
+  return `'${year.slice(2)} ${month} ${day}`
+}
+
 function PhotoGallery() {
-  const photos = [
-    { 
-      location: "Sumatra, Indonesia",
-      image: "/images/surf.jpeg"
-    },
-    { 
-      location: "Isle of Skye, Scotland", 
-      image: "/images/scotland.jpeg"
-    },  
-    { 
-      location: "Fuerteventura, Spain", 
-      image: "/images/fuerteventura.jpeg"
-    },
-    { 
-      location: "Tenerife, Spain", 
-      image: "/images/tenerife-laura.jpeg"
-    },
-    { 
-      location: "Lanzarote, Spain", 
-      image: "/images/lanzarote.jpeg"
-    },
-    { 
-      location: "Tenerife, Spain", 
-      image: "/images/tenerife.jpeg"
-    },
-  ]
-
   return (
-    <div className="space-y-2">
-      {/* Photo Grid - one column on phones, two from 640px */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-3 gap-y-5">
+    // Break out of the centered column to use the full window width
+    <div className="w-screen ml-[calc(50%-50vw)] px-5">
+      <div className="gallery max-w-[1800px] mx-auto">
         {photos.map((photo, index) => (
-          <div key={index} className="flex flex-col gap-2">
-            {/* Photo */}
-            <div className="w-full rounded-[10px] overflow-hidden" style={{ aspectRatio: '640/428' }}>
-              <img 
-                src={photo.image}
-                alt={photo.location}
-                className="w-full h-full object-cover"
-                loading={index < 2 ? "eager" : "lazy"}
-                decoding="async"
-              />
-            </div>
-            
-            {/* Location Caption */}
-            <p 
-              className="text-[#74747B] dark:text-[#9B9BA0]"
-              style={{ 
-                fontSize: '15px',
-                letterSpacing: '-0.06px',
-                lineHeight: '1.4em'
-              }}
-            >
-              {photo.location}
-            </p>
-          </div>
+          <figure
+            key={photo.src}
+            className="gallery-item group"
+            style={{ '--ratio': photo.width / photo.height }}
+          >
+            <img
+              src={photo.src}
+              alt={[photo.location, photo.camera && `shot on ${photo.camera}`].filter(Boolean).join(', ') || 'Photo'}
+              width={photo.width}
+              height={photo.height}
+              loading={index < 6 ? 'eager' : 'lazy'}
+              decoding="async"
+              className="block w-full h-auto motion-safe:transition-transform motion-safe:duration-500 group-hover:scale-[1.03]"
+            />
+            <figcaption className="gallery-caption">
+              <span className="min-w-0">
+                {photo.location && <span className="block">{photo.location}</span>}
+                {photo.camera && (
+                  <span className="gallery-meta">
+                    {photo.camera}
+                    {photo.settings && <span className="gallery-settings"> · {photo.settings}</span>}
+                  </span>
+                )}
+              </span>
+              {photo.date && <span className="gallery-stamp">{dateStamp(photo.date)}</span>}
+            </figcaption>
+          </figure>
         ))}
-      </div>
-
-      {/* More Photos Link */}
-      <div className="pt-6">
-        <a 
-          href="https://instagram.com/hfauq"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-[#FF4700] dark:text-[#7B92ED] hover:underline dark:hover:text-[#8CA0ED]"
-          style={{ 
-            fontSize: '18px',
-            letterSpacing: '-0.06px',
-            lineHeight: '1.5em'
-          }}
-        >
-          More photos →
-        </a>
       </div>
     </div>
   )
 }
 
 export default PhotoGallery
-

@@ -25,3 +25,6 @@ dist-ssr
 
 # GitHub Pages deployment
 .gh-pages
+
+# Full-size photo originals; web copies live in public/images/gallery
+photo-originals/

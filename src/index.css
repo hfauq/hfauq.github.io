@@ -122,6 +122,111 @@ h1, h2, h3, h4, h5, h6, p {
   .moon-glow { display: inline-block; }
 }
 
+/*
+ * Justified photo gallery. Each item's width grows in proportion to its aspect ratio, so
+ * every photo in a row ends up the same height. --row is the target row height.
+ */
+.gallery {
+  --row: 300px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* Soaks up the leftover space so a short last row keeps its natural size */
+.gallery::after {
+  content: '';
+  flex-grow: 999;
+}
+
+.gallery-item {
+  position: relative;
+  margin: 0;
+  overflow: hidden;
+  flex-grow: calc(var(--ratio) * 100);
+  flex-basis: calc(var(--ratio) * var(--row));
+  /* A photo left alone on a row can't balloon past ~1.8x the target height */
+  max-width: calc(var(--ratio) * var(--row) * 1.8);
+}
+
+.gallery-caption {
+  position: absolute;
+  inset: auto 0 0 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 32px 12px 10px;
+  font-size: 14px;
+  line-height: 1.3;
+  color: #fff;
+  background: linear-gradient(to top, rgb(0 0 0 / 0.6), transparent);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+/* Camera and settings, set like a contact-sheet note */
+.gallery-meta {
+  display: block;
+  margin-top: 2px;
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  opacity: 0.8;
+}
+
+/* Glowing orange date imprint, like a film point-and-shoot */
+.gallery-stamp {
+  flex-shrink: 0;
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: #FFA24C;
+  text-shadow: 0 0 6px rgb(255 110 30 / 0.8);
+}
+
+.gallery-item:hover .gallery-caption {
+  opacity: 1;
+}
+
+/* Touch screens can't hover, so captions stay visible there */
+@media (hover: none) {
+  .gallery-caption { opacity: 1; }
+}
+
+@media (max-width: 1023px) {
+  .gallery { --row: 220px; }
+}
+
+/* Phones: rows get too short to mix shapes well, so stack photos in two columns instead */
+@media (max-width: 639px) {
+  .gallery {
+    display: block;
+    columns: 2;
+    column-gap: 6px;
+  }
+
+  .gallery::after { content: none; }
+
+  .gallery-item {
+    max-width: none;
+    margin-bottom: 6px;
+    break-inside: avoid;
+  }
+
+  .gallery-caption {
+    padding: 24px 8px 6px;
+    font-size: 12px;
+  }
+
+  /* Small tiles: keep the place, camera and stamp, drop the exposure details */
+  .gallery-settings { display: none; }
+  .gallery-meta { font-size: 10px; }
+  .gallery-stamp { font-size: 10px; }
+}
+
 /* Handwritten "in Biarritz" note: the words write on, then the arrow draws toward the name */
 .note {
   font-family: 'Caveat', cursive;

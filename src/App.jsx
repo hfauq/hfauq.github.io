@@ -43,11 +43,9 @@ function App() {
           </Section>
         </div>
 
-        {/* Photos Section */}
+        {/* Photos */}
         <div className="mb-[54px]">
-          <Section label="Photos">
-            <PhotoGallery />
-          </Section>
+          <PhotoGallery />
         </div>
 
         {/* Footer */}
