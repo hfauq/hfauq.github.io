@@ -1,4 +1,5 @@
-import { useState, useSyncExternalStore } from 'react'
+import { useLayoutEffect, useRef, useState, useSyncExternalStore } from 'react'
+import { FaInstagram } from 'react-icons/fa6'
 import { photos } from '../photos'
 import { altText, avifSrcSet, dateStamp, jpegSrc } from '../photoFormat'
 import Lightbox from './Lightbox'
@@ -44,7 +45,58 @@ function splitColumns(list) {
     columns[column].push({ photo, index })
     heights[column] += photo.height / photo.width
   })
-  return columns
+  return { columns, shorter: heights[0] <= heights[1] ? 0 : 1 }
+}
+
+const CARD_BASIS = 260 // matches .gallery-justified > .insta-card
+
+// Would the card still fit after the photos in the last justified row? Replays how flex-wrap
+// breaks lines from each item's base width, so the answer doesn't depend on the current render.
+function cardFitsLastRow(rowEl) {
+  const width = rowEl.clientWidth
+  const style = getComputedStyle(rowEl)
+  const row = parseFloat(style.getPropertyValue('--row'))
+  const gap = parseFloat(style.columnGap) || 0
+  let line = 0
+  for (const photo of photos) {
+    const basis = (photo.width / photo.height) * row
+    line = line > 0 && line + gap + basis > width ? basis : line + (line > 0 ? gap : 0) + basis
+  }
+  return width - line - gap >= CARD_BASIS
+}
+
+// The end of a colour negative: orange film base and sprocket holes. In the justified layout
+// it fills whatever the last row leaves; when that row is already full it becomes a photo-sized
+// frame of its own instead of a full-width banner.
+function InstagramCard() {
+  const ref = useRef(null)
+  const [alone, setAlone] = useState(false)
+
+  useLayoutEffect(() => {
+    const rowEl = ref.current.parentElement
+    if (!rowEl.classList.contains('gallery-justified')) return
+    const update = () => setAlone(!cardFitsLastRow(rowEl))
+    update()
+    const observer = new ResizeObserver(update)
+    observer.observe(rowEl)
+    return () => observer.disconnect()
+  }, [])
+
+  return (
+    <a
+      ref={ref}
+      href="https://instagram.com/hfauq"
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`insta-card group${alone ? ' is-alone' : ''}`}
+    >
+      <FaInstagram className="insta-icon" aria-hidden="true" />
+      <span className="insta-title">Find me on Instagram</span>
+      <span className="insta-handle">
+        @hfauq <span className="insta-arrow" aria-hidden="true">→</span>
+      </span>
+    </a>
+  )
 }
 
 function Tile({ photo, index, onOpen }) {
@@ -88,6 +140,7 @@ function Tile({ photo, index, onOpen }) {
 function PhotoGallery() {
   const isPhone = useMediaQuery(PHONE_QUERY)
   const [openIndex, setOpenIndex] = useState(null)
+  const { columns, shorter } = splitColumns(photos)
 
   return (
     // Break out of the centered column to use the full window width
@@ -95,11 +148,12 @@ function PhotoGallery() {
       <div className="max-w-[1800px] mx-auto">
         {isPhone ? (
           <div className="gallery-columns">
-            {splitColumns(photos).map((column, c) => (
+            {columns.map((column, c) => (
               <div key={c} className="gallery-column">
                 {column.map(({ photo, index }) => (
                   <Tile key={photo.base} photo={photo} index={index} onOpen={setOpenIndex} />
                 ))}
+                {c === shorter && <InstagramCard />}
               </div>
             ))}
           </div>
@@ -108,6 +162,7 @@ function PhotoGallery() {
             {photos.map((photo, index) => (
               <Tile key={photo.base} photo={photo} index={index} onOpen={setOpenIndex} />
             ))}
+            <InstagramCard />
           </div>
         )}
       </div>

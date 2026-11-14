@@ -122,6 +122,15 @@ h1, h2, h3, h4, h5, h6, p {
   .moon-glow { display: inline-block; }
 }
 
+/* Dotted leader between a project and its year, like a table of contents */
+.leader {
+  height: 4px;
+  background-image: radial-gradient(circle, currentColor 1px, transparent 1.4px);
+  background-size: 6px 4px;
+  background-position: left center;
+  background-repeat: repeat-x;
+}
+
 /*
  * Photo gallery. Wide screens: justified rows, where each item's width grows in proportion to
  * its aspect ratio so every photo in a row ends up the same height (--row is the target height).
@@ -140,11 +149,6 @@ h1, h2, h3, h4, h5, h6, p {
   gap: 8px;
 }
 
-/* Soaks up the leftover space so a short last row keeps its natural size */
-.gallery-justified::after {
-  content: '';
-  flex-grow: 999;
-}
 
 .gallery-justified > .gallery-item {
   flex-grow: calc(var(--ratio) * 100);
@@ -155,7 +159,8 @@ h1, h2, h3, h4, h5, h6, p {
 
 .gallery-columns {
   display: flex;
-  align-items: flex-start;
+  /* Both columns end level, so the Instagram card can fill the shorter one */
+  align-items: stretch;
   gap: 6px;
 }
 
@@ -165,6 +170,129 @@ h1, h2, h3, h4, h5, h6, p {
   display: flex;
   flex-direction: column;
   gap: 6px;
+}
+
+/*
+ * Instagram card, drawn as the end of a colour negative: orange film base and sprocket holes.
+ * In the last row it soaks up the leftover width, so a short last row keeps its photos at their
+ * natural size; on phones it fills the bottom of the shorter column.
+ */
+.insta-card {
+  --holes: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='14'%3E%3Crect x='6' y='3' width='10' height='8' rx='2' fill='%23F6EFE2'/%3E%3C/svg%3E");
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 6px;
+  min-height: 180px;
+  padding: 32px 24px;
+  overflow: hidden;
+  color: #FFF4E6;
+  background:
+    var(--holes) top 2px left 0 / 22px 14px repeat-x,
+    var(--holes) bottom 2px left 0 / 22px 14px repeat-x,
+    radial-gradient(120% 90% at 30% 20%, #D9783A, #B3511E 55%, #8E3C14);
+  transition: filter 0.2s ease;
+}
+
+/* Fine grain, like the rest of the film */
+.insta-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.2 0 0 0 0 0.08 0 0 0 0 0 0 0 0 0.35 -0.08'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+  pointer-events: none;
+}
+
+.insta-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.insta-card:hover {
+  filter: brightness(1.06) saturate(1.05);
+}
+
+.insta-card:focus-visible {
+  outline: 2px solid #FF4700;
+  outline-offset: 2px;
+}
+
+.gallery-justified > .insta-card {
+  flex: 999 1 260px;
+}
+
+/* Last row already full: sit on the next row as a photo-sized frame, not a full-width banner */
+.gallery-justified > .insta-card.is-alone {
+  flex: 0 1 calc(var(--row) * 1.5);
+  min-height: var(--row);
+}
+
+.gallery-column > .insta-card {
+  flex: 1 0 auto;
+  min-height: 150px;
+}
+
+.insta-icon {
+  width: 22px;
+  height: 22px;
+  margin-bottom: 4px;
+}
+
+.insta-title {
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+.insta-handle {
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 13px;
+  opacity: 0.85;
+}
+
+.insta-arrow {
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+
+.insta-card:hover .insta-arrow {
+  transform: translateX(4px);
+}
+
+/* Dark mode: an indigo film base in the link color's hue; the holes show the night sky behind */
+@media (prefers-color-scheme: dark) {
+  .insta-card {
+    --holes: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='14'%3E%3Crect x='6' y='3' width='10' height='8' rx='2' fill='%2311141D'/%3E%3C/svg%3E");
+    color: #EEF1FF;
+    background:
+      var(--holes) top 2px left 0 / 22px 14px repeat-x,
+      var(--holes) bottom 2px left 0 / 22px 14px repeat-x,
+      radial-gradient(120% 90% at 30% 20%, #2A3566, #1D254B 55%, #161C3A);
+  }
+
+  .insta-card::after {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.04 0 0 0 0 0.05 0 0 0 0 0.16 0 0 0 0.35 -0.08'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  }
+
+  .insta-card:focus-visible {
+    outline-color: #7B92ED;
+  }
+}
+
+@media (max-width: 639px) {
+  .insta-card { padding: 26px 12px; }
+  .insta-title { font-size: 17px; }
+  .insta-handle { font-size: 11px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .insta-card,
+  .insta-arrow { transition: none; }
 }
 
 .gallery-open {
@@ -348,7 +476,7 @@ h1, h2, h3, h4, h5, h6, p {
   .lightbox-image { animation: none; }
 }
 
-/* Handwritten "in Biarritz" note: the words write on, then the arrow draws toward the name */
+/* Handwritten "in Biarritz" note: the arrow draws toward the name while the words write on */
 .note {
   font-family: 'Caveat', cursive;
   font-weight: 500;
@@ -367,12 +495,12 @@ h1, h2, h3, h4, h5, h6, p {
 .note-arrow path {
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
-  animation: note-draw 0.5s ease-out 1.6s forwards;
+  animation: note-draw 0.85s ease-in-out 0.5s forwards;
 }
 
 .note-arrow .head {
   animation-duration: 0.2s;
-  animation-delay: 2.05s;
+  animation-delay: 1.35s;
 }
 
 @keyframes note-write {

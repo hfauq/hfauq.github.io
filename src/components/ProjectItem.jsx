@@ -1,6 +1,6 @@
 /**
  * ProjectItem Component
- * Displays a project in horizontal layout: Name | Divider | Date
+ * Displays a project in horizontal layout: Name | Dotted leader | Date
  */
 function ProjectItem({ name, url, date }) {
   const textStyle = {
@@ -30,8 +30,8 @@ function ProjectItem({ name, url, date }) {
         </p>
       )}
 
-      {/* Divider Line */}
-      <div className="flex-1 h-px bg-[#CAC5D3] dark:bg-[#515151] min-w-[24px]"></div>
+      {/* Dotted leader */}
+      <div className="leader flex-1 min-w-[24px] text-[#B9B3A8] dark:text-[#4E5466]" aria-hidden="true"></div>
 
       {/* Date */}
       <p

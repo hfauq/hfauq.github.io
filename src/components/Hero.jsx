@@ -22,17 +22,24 @@ function Hero() {
 
         {/* First Paragraph - Name, with a handwritten "in Biarritz" note pointing at it */}
         <div className="flex items-center gap-1.5 mb-[24px]">
-          <h3
-            className="text-[18px] font-semibold text-[#74747B] dark:text-[#9B9BA0]"
-            style={{
-              letterSpacing: '-0.06px',
-              lineHeight: '1.5em',
-              marginTop: 0,
-              marginBottom: 0
-            }}
-          >
-            Hugo Fauquenoi
-          </h3>
+          <div className="flex items-center gap-2 shrink-0">
+            {/* Decorative: the name sits right next to it. 96px source covers 3x screens */}
+            <picture className="shrink-0">
+              <source type="image/avif" srcSet="/images/avatar-96.avif" />
+              <img src="/images/avatar-96.jpg" alt="" width="28" height="28" className="block size-7 rounded-full" />
+            </picture>
+            <h3
+              className="text-[18px] font-semibold text-[#74747B] dark:text-[#9B9BA0]"
+              style={{
+                letterSpacing: '-0.06px',
+                lineHeight: '1.5em',
+                marginTop: 0,
+                marginBottom: 0
+              }}
+            >
+              Hugo Fauquenoi
+            </h3>
+          </div>
 
           <span className="note inline-flex items-center text-[#FF4700] dark:text-[#7B92ED]">
             <svg className="note-arrow" width="44" height="26" viewBox="0 0 44 26" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
