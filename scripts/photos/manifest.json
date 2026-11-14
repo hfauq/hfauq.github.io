@@ -1,0 +1,247 @@
+{
+  "ignore": [
+    "05 Takayama, Japan.JPG",
+    "irland-connemara-resize-rename.jpg",
+    "avatar.jpg"
+  ],
+  "photos": {
+    "000019.jpg": {
+      "base": "2023-12-30-000019",
+      "location": "Biarritz, France"
+    },
+    "000039.jpg": {
+      "base": "2024-03-03-000039",
+      "location": "Miami, USA"
+    },
+    "000045580010.jpg": {
+      "base": "2023-03-28-000045580010",
+      "location": "Taghazout, Morocco"
+    },
+    "000045580021.jpg": {
+      "base": "2023-03-26-000045580021",
+      "location": "Taghazout, Morocco"
+    },
+    "000045590032.jpg": {
+      "base": "2023-03-25-000045590032",
+      "location": "Taghazout, Morocco"
+    },
+    "000045590033.jpg": {
+      "base": "2023-03-30-000045590033",
+      "location": "Taghazout, Morocco"
+    },
+    "000046.jpg": {
+      "base": "2023-08-09-000046",
+      "location": "Biscay, Spain"
+    },
+    "000047.jpg": {
+      "base": "2024-03-03-000047",
+      "location": "Miami, USA"
+    },
+    "000052.jpg": {
+      "base": "2024-10-15-000052",
+      "location": "New York, USA"
+    },
+    "000054.jpg": {
+      "base": "2024-02-23-000054",
+      "location": "Fuerteventura, Spain"
+    },
+    "000055.jpg": {
+      "base": "2024-03-03-000055",
+      "location": "Miami, USA"
+    },
+    "000057.jpg": {
+      "base": "2024-10-15-000057",
+      "location": "New York, USA"
+    },
+    "000059.jpg": {
+      "base": "2024-03-03-000059",
+      "location": "Miami, USA"
+    },
+    "000063.jpg": {
+      "base": "2024-02-23-000063",
+      "location": "Fuerteventura, Spain"
+    },
+    "000064.jpg": {
+      "base": "2024-10-15-000064",
+      "location": "New York, USA"
+    },
+    "000069.jpg": {
+      "base": "2023-08-09-000069",
+      "location": "Artimino, Italy"
+    },
+    "000072.jpg": {
+      "base": "2024-03-03-000072",
+      "location": "Miami, USA"
+    },
+    "000074.jpg": {
+      "base": "2024-03-03-000074",
+      "location": "Miami, USA"
+    },
+    "01 Sumatra, Indonesia.jpeg": {
+      "base": "2026-08-18-krui-indonesia",
+      "location": "Krui, Indonesia",
+      "date": "2026-08-18",
+      "camera": "Sony α1"
+    },
+    "2024_btz_15.jpg": {
+      "base": "2024-11-12-2024-btz-15",
+      "location": "Biarritz, France"
+    },
+    "2024_irlande_14.jpg": {
+      "base": "2024-09-22-2024-irlande-14",
+      "location": "Connemara, Ireland"
+    },
+    "2024_irlande_9.jpg": {
+      "base": "2024-09-22-2024-irlande-9",
+      "location": "Connemara, Ireland"
+    },
+    "2024_nyc_132.jpg": {
+      "base": "2024-10-15-2024-nyc-132",
+      "location": "New York, USA"
+    },
+    "2024_nyc_80.jpg": {
+      "base": "2024-10-15-2024-nyc-80",
+      "location": "New York, USA"
+    },
+    "DSC08907.JPG": {
+      "base": "2026-09-02-dsc08907",
+      "location": "Krui, Indonesia"
+    },
+    "DSCF0607.JPG": {
+      "base": "2025-07-03-dscf0607",
+      "location": "Phuket, Thailand"
+    },
+    "DSCF1680.JPG": {
+      "base": "2025-07-23-dscf1680",
+      "location": "Vendée, France"
+    },
+    "DSCF1904.jpg": {
+      "base": "2025-09-10-dscf1904",
+      "location": "Isle of Skye, Scotland"
+    },
+    "DSCF2033.jpg": {
+      "base": "2025-09-10-dscf2033",
+      "location": "Isle of Skye, Scotland"
+    },
+    "DSCF2056.jpg": {
+      "base": "2025-09-11-dscf2056",
+      "location": "Isle of Skye, Scotland"
+    },
+    "DSCF2557.jpg": {
+      "base": "2026-03-10-dscf2557",
+      "location": "Fuerteventura, Spain"
+    },
+    "DSCF2638.JPG": {
+      "base": "2026-04-26-dscf2638",
+      "location": "Bardenas, Spain"
+    },
+    "DSCF2669.JPG": {
+      "base": "2026-05-01-dscf2669",
+      "location": "Ainhoa, France"
+    },
+    "DSCF2922.jpg": {
+      "base": "2026-07-14-dscf2922",
+      "location": "Copenhagen, Denmark"
+    },
+    "DSCF3002.jpg": {
+      "base": "2026-07-16-dscf3002",
+      "location": "Tisvildeleje, Denmark"
+    },
+    "DSCF3065.JPG": {
+      "base": "2026-07-18-dscf3065",
+      "location": "Copenhagen, Denmark"
+    },
+    "DSCF3174.jpg": {
+      "base": "2026-08-19-dscf3174",
+      "location": "Krui, Indonesia"
+    },
+    "DSCF3226.JPG": {
+      "base": "2026-08-20-dscf3226",
+      "location": "Krui, Indonesia"
+    },
+    "DSCF3386.JPG": {
+      "base": "2026-08-30-dscf3386",
+      "location": "Krui, Indonesia"
+    },
+    "DSCF3528.JPG": {
+      "base": "2026-10-01-dscf3528",
+      "location": "Tokyo, Japan"
+    },
+    "DSCF3685.jpg": {
+      "base": "2026-10-03-dscf3685",
+      "location": "Tokyo, Japan"
+    },
+    "DSCF4164.jpg": {
+      "base": "2026-10-06-dscf4164",
+      "location": "Hakone, Japan"
+    },
+    "DSCF4361.JPG": {
+      "base": "2026-10-08-dscf4361",
+      "location": "Mt Fuji, Japan"
+    },
+    "DSCF4523.JPG": {
+      "base": "2026-10-09-dscf4523",
+      "location": "Takayama, Japan"
+    },
+    "DSCF4550.JPG": {
+      "base": "2026-10-09-dscf4550",
+      "location": "Takayama, Japan"
+    },
+    "IMG_1185.JPG": {
+      "base": "2024-09-18-img-1185",
+      "location": "Lahinch, Ireland"
+    },
+    "IMG_1326.JPG": {
+      "base": "2025-08-10-img-1326",
+      "location": "Biarritz, France"
+    },
+    "IMG_2088.JPG": {
+      "base": "2023-03-27-img-2088",
+      "location": "Taghazout, Morocco"
+    },
+    "IMG_2713.JPG": {
+      "base": "2024-10-03-img-2713",
+      "location": "New York, USA"
+    },
+    "IMG_2741.JPG": {
+      "base": "2024-10-03-img-2741",
+      "location": "New York, USA"
+    },
+    "IMG_5996.JPG": {
+      "base": "2026-03-17-img-5996",
+      "location": "Biarritz, France"
+    },
+    "IMG_7160.jpg": {
+      "base": "2024-01-23-img-7160",
+      "location": "Biarritz, France"
+    },
+    "IMG_7754.JPG": {
+      "base": "2024-02-26-img-7754",
+      "location": "Miami, USA"
+    },
+    "IMG_8237_jpg.jpg": {
+      "base": "2024-03-02-img-8237-jpg",
+      "location": "Miami, USA"
+    },
+    "IMG_9883.JPG": {
+      "base": "2025-06-28-img-9883",
+      "location": "Guéthary, France"
+    },
+    "Italie 2022 - 115.jpg": {
+      "base": "2022-09-14-italie-2022-115",
+      "location": "Napoli, Italy"
+    },
+    "Italie 2022 - 82.jpg": {
+      "base": "2022-09-11-italie-2022-82",
+      "location": "Napoli, Italy"
+    },
+    "Italie 2022 - 87.jpg": {
+      "base": "2022-09-11-italie-2022-87",
+      "location": "Napoli, Italy"
+    },
+    "scotland.jpeg": {
+      "base": "2025-09-10-scotland",
+      "location": "Isle of Skye, Scotland"
+    }
+  }
+}
