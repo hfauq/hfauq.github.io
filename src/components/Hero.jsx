@@ -72,7 +72,7 @@ function Hero() {
             rel="noopener noreferrer"
             className="text-[#0099ff] dark:text-[#7B92ED] hover:underline dark:hover:text-[#8CA0ED]"
           >
-            X
+            Twitter
           </a>
           {' '}and{' '}
           <a
