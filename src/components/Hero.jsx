@@ -60,7 +60,8 @@ function Hero() {
           </span>
         </div>
 
-        {/* Intro - the main text, two paragraphs */}
+        {/* Intro - the main text, two paragraphs. The year count is pre-rendered at build time
+            and recomputed in the browser, so it can differ right after New Year. */}
         <p
           className="text-[24px] font-medium text-[#050505] dark:text-[#EDEDED]"
           style={{
@@ -69,6 +70,7 @@ function Hero() {
             marginTop: 0,
             marginBottom: '16px'
           }}
+          suppressHydrationWarning
         >
           I've been building products at{' '}
           <a

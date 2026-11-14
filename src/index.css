@@ -7,6 +7,20 @@
  */
 @custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
 
+/*
+ * Caveat (SIL Open Font License), trimmed to just the letters in "in Biarritz": 4KB instead of 49KB.
+ * If the note's text changes, re-download it with those letters:
+ * https://fonts.googleapis.com/css2?family=Caveat:wght@500&text=<new text>
+ * Inter comes from @fontsource-variable/inter, imported in main.jsx.
+ */
+@font-face {
+  font-family: 'Caveat';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('./assets/fonts/caveat-500-in-biarritz.woff2') format('woff2');
+}
+
 /* Page colors on the root too, so Safari's toolbar area and overscroll aren't white */
 html {
   color-scheme: light;
@@ -26,7 +40,7 @@ html[data-theme='dark'] {
 
 /* Custom styles for the website */
 body {
-  font-family: 'Inter', 'Inter Placeholder', system-ui, -apple-system, sans-serif;
+  font-family: 'Inter Variable', 'Inter', system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

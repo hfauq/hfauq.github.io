@@ -21,6 +21,9 @@ function useMediaQuery(query) {
       return () => media.removeEventListener('change', onChange)
     },
     () => window.matchMedia(query).matches,
+    // Pre-rendered at build time with the wide layout; phones switch to columns once the page
+    // is live, well before anyone scrolls down to the gallery
+    () => false,
   )
 }
 
