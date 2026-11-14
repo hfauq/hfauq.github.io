@@ -1,48 +1,56 @@
+import SocialLinks from './SocialLinks'
+
 /**
  * Hero Section Component
- * Displays the name, main heading, and intro paragraphs with links
+ * Displays the name, main heading, intro paragraph, and social links
  */
 function Hero() {
   const yearsAtTodoist = new Date().getFullYear() - 2015
 
   return (
-    <section className="w-[800px] max-[1199px]:w-full mx-auto">
+    <section className="w-full max-w-[800px] mx-auto">
       <div>
-        {/* First Paragraph - Name */}
-        <h3 
-          className="text-[18px] font-semibold text-[#74747B] dark:text-[#9B9BA0]"
-          style={{ 
-            letterSpacing: '-0.06px', 
-            lineHeight: '1.5em',
-            marginTop: 0,
-            marginBottom: '24px'
-          }}
-        >
-          Hugo Fauquenoi
-        </h3>
+        {/* Sun (light mode) or moon (dark mode), with its sky painted behind the page content */}
+        <div className="flex justify-end">
+          <span aria-hidden="true" className="relative inline-flex text-[40px] leading-none select-none">
+            <span className="sun-rays -z-10" />
+            <span className="moon-glow -z-10" />
+            <span className="sun">🌞</span>
+            <span className="moon">🌚</span>
+          </span>
+        </div>
 
-        {/* Second Paragraph - Main Heading */}
-        <p 
-          className="text-[30px] font-medium text-[#050505] dark:text-[#EDEDED] mb-[24px]"
-          style={{ 
-            letterSpacing: '-0.01em', 
-            lineHeight: '1.32em',
-            fontWeight: 500,
-            marginTop: 0,
-            marginBottom: '24px'
-          }}
-        >
-          I'm a product person with a passion for well-crafted tools, surf, and photography.
-        </p>
+        {/* First Paragraph - Name, with a handwritten "in Biarritz" note pointing at it */}
+        <div className="flex items-center gap-1.5 mb-[24px]">
+          <h3
+            className="text-[18px] font-semibold text-[#74747B] dark:text-[#9B9BA0]"
+            style={{
+              letterSpacing: '-0.06px',
+              lineHeight: '1.5em',
+              marginTop: 0,
+              marginBottom: 0
+            }}
+          >
+            Hugo Fauquenoi
+          </h3>
 
-        {/* Third Paragraph - First Body Text */}
-        <p 
-          className="text-[18px] text-[#74747B] dark:text-[#9B9BA0] mb-[24px]"
-          style={{ 
-            letterSpacing: '-0.06px', 
-            lineHeight: '1.5em',
+          <span className="note inline-flex items-center text-[#FF4700] dark:text-[#7B92ED]">
+            <svg className="note-arrow" width="44" height="26" viewBox="0 0 44 26" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path className="shaft" pathLength="1" d="M41 20C30 2 16 1 4 16" />
+              <path className="head" pathLength="1" d="M10.7 14 4 16 4.5 9" />
+            </svg>
+            <span className="note-text">in Biarritz</span>
+          </span>
+        </div>
+
+        {/* Intro - the main text, two paragraphs */}
+        <p
+          className="text-[24px] font-medium text-[#050505] dark:text-[#EDEDED]"
+          style={{
+            letterSpacing: '-0.01em',
+            lineHeight: '1.45em',
             marginTop: 0,
-            marginBottom: '24px'
+            marginBottom: '16px'
           }}
         >
           I've been building products at{' '}
@@ -50,52 +58,26 @@ function Hero() {
             href="https://todoist.com/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[#0099ff] dark:text-[#7B92ED] hover:underline dark:hover:text-[#8CA0ED]"
+            className="text-[#FF4700] dark:text-[#7B92ED] hover:underline dark:hover:text-[#8CA0ED]"
           >
             Todoist
           </a>
           {' '}for {yearsAtTodoist} years. We empower people with simple yet powerful productivity tools.
         </p>
 
-        {/* Fourth Paragraph - Second Body Text */}
-        <p 
-          className="text-[18px] text-[#74747B] dark:text-[#9B9BA0]"
-          style={{ 
-            letterSpacing: '-0.06px', 
-            lineHeight: '1.5em',
+        <p
+          className="text-[24px] font-medium text-[#050505] dark:text-[#EDEDED]"
+          style={{
+            letterSpacing: '-0.01em',
+            lineHeight: '1.45em',
             marginTop: 0,
-            marginBottom: 0
+            marginBottom: '24px'
           }}
         >
-          Find me on{' '}
-          <a
-            href="https://x.com/hfauq"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[#0099ff] dark:text-[#7B92ED] hover:underline dark:hover:text-[#8CA0ED]"
-          >
-            Twitter
-          </a>
-          {' '}and{' '}
-          <a
-            href="https://linkedin.com/in/hfauq"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[#0099ff] dark:text-[#7B92ED] hover:underline dark:hover:text-[#8CA0ED]"
-          >
-            LinkedIn
-          </a>
-          {' '}where I (sometimes) talk about product, and{' '}
-          <a 
-            href="https://instagram.com/hfauq" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="text-[#0099ff] dark:text-[#7B92ED] hover:underline dark:hover:text-[#8CA0ED]"
-          >
-            Instagram
-          </a>
-          {' '}where I share what I see behind the camera.
+          I love surfing, photography, Kaytranada, and okonomiyaki.
         </p>
+
+        <SocialLinks />
       </div>
     </section>
   )

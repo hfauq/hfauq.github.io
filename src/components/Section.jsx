@@ -4,8 +4,8 @@
  */
 function Section({ label, children }) {
   return (
-    <section className="w-[800px] max-[1199px]:w-full mx-auto">
-      <div className="flex flex-col gap-2">
+    <section className="w-full max-w-[800px] mx-auto">
+      <div className="flex flex-col gap-4">
         {/* Header */}
         <h3 
           className="text-[18px] font-semibold text-[#74747B] dark:text-[#9B9BA0]"

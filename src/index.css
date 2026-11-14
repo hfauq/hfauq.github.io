@@ -16,3 +16,155 @@ body {
 h1, h2, h3, h4, h5, h6, p {
   margin: 0;
 }
+
+/*
+ * Sky: fine grain across the page, plus a sky layer behind the hero emoji.
+ * Light mode: warm paper grain, 🌞 with a golden glow and slowly turning rays.
+ * Dark mode: pale grain, 🌚 with a cool moonlight halo and twinkling stars.
+ */
+.grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.55 0 0 0 0 0.42 0 0 0 0 0.25 0 0 0 0.22 -0.05'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+}
+
+.sun-rays,
+.moon-glow {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.sun-rays {
+  width: 1100px;
+  height: 1100px;
+  background:
+    radial-gradient(circle, rgb(255 190 90 / 0.26) 0%, rgb(255 190 90 / 0.08) 16%, transparent 45%),
+    repeating-conic-gradient(rgb(255 175 70 / 0.05) 0deg 2deg, transparent 8deg 15deg);
+  mask-image: radial-gradient(circle, #000 0%, rgb(0 0 0 / 0.5) 18%, transparent 48%);
+  animation: sun-rays-spin 160s linear infinite;
+}
+
+.moon-glow {
+  display: none;
+  width: 900px;
+  height: 900px;
+  background: radial-gradient(circle, rgb(170 185 255 / 0.2) 0%, rgb(170 185 255 / 0.06) 14%, transparent 40%);
+}
+
+/* Stars: tiny dots fading out with distance from the moon */
+.moon-glow::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 30% 22%, #fff 0 1.5px, transparent 2px),
+    radial-gradient(circle at 62% 17%, #fff 0 2px, transparent 2.5px),
+    radial-gradient(circle at 78% 34%, #fff 0 1.5px, transparent 2px),
+    radial-gradient(circle at 21% 47%, #fff 0 2px, transparent 2.5px),
+    radial-gradient(circle at 39% 35%, #fff 0 1.5px, transparent 2px),
+    radial-gradient(circle at 71% 59%, #fff 0 1.5px, transparent 2px),
+    radial-gradient(circle at 84% 71%, #fff 0 2px, transparent 2.5px),
+    radial-gradient(circle at 55% 75%, #fff 0 1.5px, transparent 2px),
+    radial-gradient(circle at 26% 67%, #fff 0 1.5px, transparent 2px),
+    radial-gradient(circle at 13% 29%, #fff 0 1.5px, transparent 2px),
+    radial-gradient(circle at 47% 11%, #fff 0 1.5px, transparent 2px),
+    radial-gradient(circle at 90% 46%, #fff 0 1.5px, transparent 2px),
+    radial-gradient(circle at 36% 85%, #fff 0 2px, transparent 2.5px),
+    radial-gradient(circle at 66% 88%, #fff 0 1.5px, transparent 2px);
+  mask-image: radial-gradient(circle, #000 0%, rgb(0 0 0 / 0.8) 25%, transparent 55%);
+  animation: twinkle 4s ease-in-out infinite alternate;
+}
+
+.sun,
+.moon {
+  display: inline-block;
+}
+
+.sun {
+  animation: sun-sway 6s ease-in-out infinite;
+}
+
+.moon {
+  display: none;
+  animation: moon-float 8s ease-in-out infinite;
+}
+
+@keyframes sun-sway {
+  0%, 100% { transform: rotate(-8deg) scale(1); }
+  50% { transform: rotate(8deg) scale(1.06); }
+}
+
+@keyframes sun-rays-spin {
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes moon-float {
+  0%, 100% { transform: translateY(0) rotate(-4deg); }
+  50% { transform: translateY(-4px) rotate(4deg); }
+}
+
+@keyframes twinkle {
+  from { opacity: 0.35; }
+  to { opacity: 0.9; }
+}
+
+@media (prefers-color-scheme: dark) {
+  .grain {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.12 -0.03'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  }
+
+  .sun,
+  .sun-rays { display: none; }
+
+  .moon,
+  .moon-glow { display: inline-block; }
+}
+
+/* Handwritten "in Biarritz" note: the words write on, then the arrow draws toward the name */
+.note {
+  font-family: 'Caveat', cursive;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 1;
+  transform: rotate(-4deg) translateY(-4px);
+}
+
+.note-text {
+  display: inline-block;
+  padding: 4px 3px 4px 0;
+  clip-path: inset(0 100% 0 0);
+  animation: note-write 1.1s cubic-bezier(0.5, 0.1, 0.4, 1) 0.5s forwards;
+}
+
+.note-arrow path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: note-draw 0.5s ease-out 1.6s forwards;
+}
+
+.note-arrow .head {
+  animation-duration: 0.2s;
+  animation-delay: 2.05s;
+}
+
+@keyframes note-write {
+  to { clip-path: inset(0 0 0 0); }
+}
+
+@keyframes note-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sun,
+  .sun-rays,
+  .moon,
+  .moon-glow::after,
+  .note-text,
+  .note-arrow path { animation: none; }
+
+  .note-text { clip-path: none; }
+  .note-arrow path { stroke-dashoffset: 0; }
+}

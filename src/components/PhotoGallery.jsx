@@ -32,24 +32,24 @@ function PhotoGallery() {
 
   return (
     <div className="space-y-2">
-      {/* Photo Stack - Vertical */}
-      <div className="flex flex-col gap-2">
+      {/* Photo Grid - one column on phones, two from 640px */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-3 gap-y-5">
         {photos.map((photo, index) => (
-          <div key={index} className="flex flex-col items-start min-[1200px]:items-end gap-2">
+          <div key={index} className="flex flex-col gap-2">
             {/* Photo */}
             <div className="w-full rounded-[10px] overflow-hidden" style={{ aspectRatio: '640/428' }}>
               <img 
                 src={photo.image}
                 alt={photo.location}
                 className="w-full h-full object-cover"
-                loading={index === 0 ? "eager" : "lazy"}
+                loading={index < 2 ? "eager" : "lazy"}
                 decoding="async"
               />
             </div>
             
             {/* Location Caption */}
             <p 
-              className="text-[#74747B] dark:text-[#9B9BA0] text-left min-[1200px]:text-right"
+              className="text-[#74747B] dark:text-[#9B9BA0]"
               style={{ 
                 fontSize: '15px',
                 letterSpacing: '-0.06px',
@@ -68,7 +68,7 @@ function PhotoGallery() {
           href="https://instagram.com/hfauq"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-[#0099ff] dark:text-[#7B92ED] hover:underline dark:hover:text-[#8CA0ED]"
+          className="text-[#FF4700] dark:text-[#7B92ED] hover:underline dark:hover:text-[#8CA0ED]"
           style={{ 
             fontSize: '18px',
             letterSpacing: '-0.06px',

@@ -14,8 +14,8 @@ export default {
         // Light mode colors from original Framer design
         // Use simple names that work with dark: prefix
         bg: {
-          light: '#FAFAFA', // rgb(250, 250, 250) - light mode
-          dark: '#1C1C1C', // rgb(28, 28, 28) - dark mode
+          light: '#FBF9F5', // rgb(251, 249, 245) - light mode, warm paper
+          dark: '#11141D', // rgb(17, 20, 29) - dark mode, night blue (hue of the link purple)
         },
         text: {
           primary: '#050505', // rgb(10, 10, 10) - light mode primary text
@@ -26,7 +26,7 @@ export default {
           'footer-dark': '#9B9BA0', // dark mode footer
         },
         link: {
-          DEFAULT: '#0099ff', // rgb(0, 153, 255) - light mode
+          DEFAULT: '#FF4700', // rgb(255, 71, 0) - light mode, Cron orange
           dark: '#7B92ED', // rgb(123, 146, 237) - dark mode
           'hover-dark': '#8CA0ED', // rgb(140, 160, 237) - dark mode hover
         },
