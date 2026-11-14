@@ -21,7 +21,7 @@ function Hero() {
 
         {/* Second Paragraph - Main Heading */}
         <p 
-          className="text-[30px] font-medium text-[#EDEDED] mb-[24px]"
+          className="text-[30px] font-medium text-[#050505] dark:text-[#EDEDED] mb-[24px]"
           style={{ 
             letterSpacing: '-0.01em', 
             lineHeight: '1.32em',
@@ -35,7 +35,7 @@ function Hero() {
 
         {/* Third Paragraph - First Body Text */}
         <p 
-          className="text-[18px] text-[#9D9DA4] mb-[24px]"
+          className="text-[18px] text-[#74747B] dark:text-[#9B9BA0] mb-[24px]"
           style={{ 
             letterSpacing: '-0.06px', 
             lineHeight: '1.5em',
@@ -57,7 +57,7 @@ function Hero() {
 
         {/* Fourth Paragraph - Second Body Text */}
         <p 
-          className="text-[18px] text-[#9D9DA4]"
+          className="text-[18px] text-[#74747B] dark:text-[#9B9BA0]"
           style={{ 
             letterSpacing: '-0.06px', 
             lineHeight: '1.5em',
