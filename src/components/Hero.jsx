@@ -1,4 +1,5 @@
 import SocialLinks from './SocialLinks'
+import { useTheme } from '../theme'
 
 /**
  * Hero Section Component
@@ -6,18 +7,27 @@ import SocialLinks from './SocialLinks'
  */
 function Hero() {
   const yearsAtTodoist = new Date().getFullYear() - 2015
+  const [theme, toggleTheme] = useTheme()
+  const switchLabel = theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'
 
   return (
     <section className="w-full max-w-[800px] mx-auto">
       <div>
-        {/* Sun (light mode) or moon (dark mode), with its sky painted behind the page content */}
+        {/* Sun (light mode) or moon (dark mode), with its sky painted behind the page content.
+            Tapping it switches the theme. */}
         <div className="flex justify-end">
-          <span aria-hidden="true" className="relative inline-flex text-[40px] leading-none select-none">
-            <span className="sun-rays -z-10" />
-            <span className="moon-glow -z-10" />
-            <span className="sun">🌞</span>
-            <span className="moon">🌚</span>
-          </span>
+          <button
+            type="button"
+            onClick={toggleTheme}
+            aria-label={switchLabel}
+            title={switchLabel}
+            className="theme-toggle relative inline-flex text-[40px] leading-none select-none"
+          >
+            <span aria-hidden="true" className="sun-rays -z-10" />
+            <span aria-hidden="true" className="moon-glow -z-10" />
+            <span aria-hidden="true" className="sun">🌞</span>
+            <span aria-hidden="true" className="moon">🌚</span>
+          </button>
         </div>
 
         {/* First Paragraph - Name, with a handwritten "in Biarritz" note pointing at it */}

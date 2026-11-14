@@ -1,13 +1,27 @@
 @import "tailwindcss";
 
+/*
+ * Theme: <html data-theme="light|dark"> is set before first paint by the script in index.html,
+ * from the visitor's saved choice or their system setting. Tapping the sun/moon flips it.
+ * Tailwind's dark: classes and the [data-theme='dark'] blocks below all key off it.
+ */
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
 /* Page colors on the root too, so Safari's toolbar area and overscroll aren't white */
 html {
-  color-scheme: light dark;
+  color-scheme: light;
   background-color: #FBF9F5;
 }
 
-@media (prefers-color-scheme: dark) {
-  html { background-color: #11141D; }
+html[data-theme='dark'] {
+  color-scheme: dark;
+  background-color: #11141D;
+}
+
+/* Theme switch: a quick crossfade between the two looks */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.45s;
 }
 
 /* Custom styles for the website */
@@ -87,6 +101,41 @@ h1, h2, h3, h4, h5, h6, p {
   animation: twinkle 4s ease-in-out infinite alternate;
 }
 
+/* The sun/moon is the theme switch: no button chrome, a little lift on hover */
+.theme-toggle {
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid #FF4700;
+  outline-offset: 6px;
+  border-radius: 999px;
+}
+
+[data-theme='dark'] .theme-toggle:focus-visible {
+  outline-color: #7B92ED;
+}
+
+/* `scale` stacks with the sway/float animations, which use `transform` */
+.theme-toggle .sun,
+.theme-toggle .moon {
+  transition: scale 0.2s ease;
+}
+
+.theme-toggle:hover .sun,
+.theme-toggle:hover .moon {
+  scale: 1.12;
+}
+
+.theme-toggle:active .sun,
+.theme-toggle:active .moon {
+  scale: 0.92;
+}
+
 .sun,
 .moon {
   display: inline-block;
@@ -120,7 +169,7 @@ h1, h2, h3, h4, h5, h6, p {
   to { opacity: 0.9; }
 }
 
-@media (prefers-color-scheme: dark) {
+[data-theme='dark'] {
   .grain {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.12 -0.03'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
   }
@@ -275,7 +324,7 @@ h1, h2, h3, h4, h5, h6, p {
 }
 
 /* Dark mode: an indigo film base in the link color's hue; the holes show the night sky behind */
-@media (prefers-color-scheme: dark) {
+[data-theme='dark'] {
   .insta-card {
     --holes: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='14'%3E%3Crect x='6' y='3' width='10' height='8' rx='2' fill='%2311141D'/%3E%3C/svg%3E");
     color: #EEF1FF;

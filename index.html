@@ -10,6 +10,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#FBF9F5" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#11141D" media="(prefers-color-scheme: dark)" />
+    <!-- Theme before first paint: the visitor's saved choice, else their system setting -->
+    <script>
+      (() => {
+        const colors = { light: '#FBF9F5', dark: '#11141D' }
+        const saved = () => { try { return localStorage.getItem('theme') } catch { return null } }
+        const media = matchMedia('(prefers-color-scheme: dark)')
+        const apply = (theme) => {
+          document.documentElement.dataset.theme = theme
+          document.querySelectorAll('meta[name="theme-color"]').forEach((m) => m.setAttribute('content', colors[theme]))
+        }
+        apply(saved() || (media.matches ? 'dark' : 'light'))
+        media.addEventListener('change', (e) => { if (!saved()) apply(e.matches ? 'dark' : 'light') })
+      })()
+    </script>
     <title>Hugo Fauquenoi</title>
     
     <!-- Inter Font from Google Fonts -->
