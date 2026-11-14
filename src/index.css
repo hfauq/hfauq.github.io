@@ -284,6 +284,15 @@ h1, h2, h3, h4, h5, h6, p {
   z-index: 1;
 }
 
+/* The card is a link (Instagram) or a button (Feed me more): drop the button chrome */
+button.insta-card {
+  width: 100%;
+  border: 0;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
 .insta-card:hover {
   filter: brightness(1.06) saturate(1.05);
 }
@@ -335,6 +344,10 @@ h1, h2, h3, h4, h5, h6, p {
 
 .insta-card:hover .insta-arrow {
   transform: translateX(4px);
+}
+
+.insta-card:hover .insta-arrow-down {
+  transform: translateY(3px);
 }
 
 /* Dark mode: an indigo film base in the link color's hue; the holes show the night sky behind */

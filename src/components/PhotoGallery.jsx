@@ -1,5 +1,5 @@
-import { useLayoutEffect, useRef, useState, useSyncExternalStore } from 'react'
-import { FaInstagram } from 'react-icons/fa6'
+import { useEffect, useLayoutEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react'
+import { FaFilm, FaInstagram } from 'react-icons/fa6'
 import { photos } from '../photos'
 import { altText, avifSrcSet, dateStamp, jpegSrc } from '../photoFormat'
 import Lightbox from './Lightbox'
@@ -51,48 +51,60 @@ function splitColumns(list) {
   return { columns, shorter: heights[0] <= heights[1] ? 0 : 1 }
 }
 
+const FIRST_PAGE = 29 // 29 + 30 = all 59 photos in two steps
+const PAGE_SIZE = 30
 const CARD_BASIS = 260 // matches .gallery-justified > .insta-card
 
-// Would the card still fit after the photos in the last justified row? Replays how flex-wrap
+// Would the card still fit after these photos in the last justified row? Replays how flex-wrap
 // breaks lines from each item's base width, so the answer doesn't depend on the current render.
-function cardFitsLastRow(rowEl) {
+function cardFitsLastRow(rowEl, shown) {
   const width = rowEl.clientWidth
   const style = getComputedStyle(rowEl)
   const row = parseFloat(style.getPropertyValue('--row'))
   const gap = parseFloat(style.columnGap) || 0
   let line = 0
-  for (const photo of photos) {
+  for (const photo of shown) {
     const basis = (photo.width / photo.height) * row
     line = line > 0 && line + gap + basis > width ? basis : line + (line > 0 ? gap : 0) + basis
   }
   return width - line - gap >= CARD_BASIS
 }
 
-// The end of a colour negative: orange film base and sprocket holes. In the justified layout
-// it fills whatever the last row leaves; when that row is already full it becomes a photo-sized
-// frame of its own instead of a full-width banner.
-function InstagramCard() {
+// The end of a colour negative: orange film base and sprocket holes. It closes the gallery,
+// first as a button that loads the next photos, then as the Instagram link once all are shown.
+// In the justified layout it fills whatever the last row leaves; when that row is already full
+// it becomes a photo-sized frame of its own instead of a full-width banner.
+function FilmStripCard({ shown, remaining, onMore }) {
   const ref = useRef(null)
   const [alone, setAlone] = useState(false)
 
   useLayoutEffect(() => {
     const rowEl = ref.current.parentElement
     if (!rowEl.classList.contains('gallery-justified')) return
-    const update = () => setAlone(!cardFitsLastRow(rowEl))
+    const update = () => setAlone(!cardFitsLastRow(rowEl, shown))
     update()
     const observer = new ResizeObserver(update)
     observer.observe(rowEl)
     return () => observer.disconnect()
-  }, [])
+  }, [shown])
+
+  const className = `insta-card group${alone ? ' is-alone' : ''}`
+
+  if (remaining > 0) {
+    const next = Math.min(PAGE_SIZE, remaining)
+    return (
+      <button ref={ref} type="button" onClick={onMore} className={className}>
+        <FaFilm className="insta-icon" aria-hidden="true" />
+        <span className="insta-title">Feed me {next} more</span>
+        <span className="insta-handle">
+          <span className="insta-arrow insta-arrow-down" aria-hidden="true">↓</span>
+        </span>
+      </button>
+    )
+  }
 
   return (
-    <a
-      ref={ref}
-      href="https://instagram.com/hfauq"
-      target="_blank"
-      rel="noopener noreferrer"
-      className={`insta-card group${alone ? ' is-alone' : ''}`}
-    >
+    <a ref={ref} href="https://instagram.com/hfauq" target="_blank" rel="noopener noreferrer" className={className}>
       <FaInstagram className="insta-icon" aria-hidden="true" />
       <span className="insta-title">Find me on Instagram</span>
       <span className="insta-handle">
@@ -107,6 +119,7 @@ function Tile({ photo, index, onOpen }) {
   return (
     <figure
       className="gallery-item group"
+      data-index={index}
       // Average color fills the tile until the photo arrives
       style={{ '--ratio': ratio, backgroundColor: photo.color }}
     >
@@ -143,12 +156,40 @@ function Tile({ photo, index, onOpen }) {
 function PhotoGallery() {
   const isPhone = useMediaQuery(PHONE_QUERY)
   const [openIndex, setOpenIndex] = useState(null)
-  const { columns, shorter } = splitColumns(photos)
+  const [shownCount, setShownCount] = useState(Math.min(FIRST_PAGE, photos.length))
+  const firstNewIndex = useRef(null)
+  const galleryRef = useRef(null)
+
+  const shown = useMemo(() => photos.slice(0, shownCount), [shownCount])
+  const remaining = photos.length - shownCount
+  const { columns, shorter } = splitColumns(shown)
+
+  const showMore = () => {
+    firstNewIndex.current = shownCount
+    setShownCount((count) => Math.min(count + PAGE_SIZE, photos.length))
+  }
+
+  // After "Feed me more", move keyboard focus to the first new photo, where the card was
+  useEffect(() => {
+    if (firstNewIndex.current === null) return
+    galleryRef.current?.querySelector(`[data-index="${firstNewIndex.current}"] .gallery-open`)?.focus({ preventScroll: true })
+    firstNewIndex.current = null
+  }, [shownCount])
+
+  // The viewer browses every photo; reaching one that isn't on the page yet adds its batch
+  useEffect(() => {
+    if (openIndex !== null && openIndex >= shownCount) {
+      const batches = Math.ceil((openIndex + 1 - shownCount) / PAGE_SIZE)
+      setShownCount(Math.min(shownCount + batches * PAGE_SIZE, photos.length))
+    }
+  }, [openIndex, shownCount])
+
+  const card = <FilmStripCard shown={shown} remaining={remaining} onMore={showMore} />
 
   return (
     // Break out of the centered column to use the full window width
     <div className="w-screen ml-[calc(50%-50vw)] px-5">
-      <div className="max-w-[1800px] mx-auto">
+      <div ref={galleryRef} className="max-w-[1800px] mx-auto">
         {isPhone ? (
           <div className="gallery-columns">
             {columns.map((column, c) => (
@@ -156,16 +197,16 @@ function PhotoGallery() {
                 {column.map(({ photo, index }) => (
                   <Tile key={photo.base} photo={photo} index={index} onOpen={setOpenIndex} />
                 ))}
-                {c === shorter && <InstagramCard />}
+                {c === shorter && card}
               </div>
             ))}
           </div>
         ) : (
           <div className="gallery-justified">
-            {photos.map((photo, index) => (
+            {shown.map((photo, index) => (
               <Tile key={photo.base} photo={photo} index={index} onOpen={setOpenIndex} />
             ))}
-            <InstagramCard />
+            {card}
           </div>
         )}
       </div>
