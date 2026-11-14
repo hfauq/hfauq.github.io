@@ -5,7 +5,7 @@
 function PhotoGallery() {
   const photos = [
     { 
-      location: "Biarritz, France", 
+      location: "Sumatra, Indonesia",
       image: "/images/surf.jpeg"
     },
     { 
