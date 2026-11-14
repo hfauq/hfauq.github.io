@@ -3,6 +3,8 @@
  * Displays the name, main heading, and intro paragraphs with links
  */
 function Hero() {
+  const yearsAtTodoist = new Date().getFullYear() - 2015
+
   return (
     <section className="w-[800px] max-[1199px]:w-full mx-auto">
       <div>
@@ -30,7 +32,7 @@ function Hero() {
             marginBottom: '24px'
           }}
         >
-          I'm a product person with a passion for well-crafted tools, surf, and film photography.
+          I'm a product person with a passion for well-crafted tools, surf, and photography.
         </p>
 
         {/* Third Paragraph - First Body Text */}
@@ -43,7 +45,7 @@ function Hero() {
             marginBottom: '24px'
           }}
         >
-          I'm currently shaping products at{' '}
+          I've been building products at{' '}
           <a
             href="https://todoist.com/"
             target="_blank"
@@ -52,7 +54,7 @@ function Hero() {
           >
             Todoist
           </a>
-          {' '}where we empower people with simple yet powerful productivity tools.
+          {' '}for {yearsAtTodoist} years. We empower people with simple yet powerful productivity tools.
         </p>
 
         {/* Fourth Paragraph - Second Body Text */}
