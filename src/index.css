@@ -1,5 +1,15 @@
 @import "tailwindcss";
 
+/* Page colors on the root too, so Safari's toolbar area and overscroll aren't white */
+html {
+  color-scheme: light dark;
+  background-color: #FBF9F5;
+}
+
+@media (prefers-color-scheme: dark) {
+  html { background-color: #11141D; }
+}
+
 /* Custom styles for the website */
 body {
   font-family: 'Inter', 'Inter Placeholder', system-ui, -apple-system, sans-serif;
