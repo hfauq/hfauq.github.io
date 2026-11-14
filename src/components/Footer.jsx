@@ -1,6 +1,6 @@
 // Output tokens Claude wrote while building this site with Claude Code, summed from the
 // session transcript. A snapshot: update it after the next session.
-const TOKENS_USED = '299K'
+const TOKENS_USED = '297K'
 
 /**
  * Footer Component
