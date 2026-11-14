@@ -123,10 +123,17 @@ h1, h2, h3, h4, h5, h6, p {
 }
 
 /*
- * Justified photo gallery. Each item's width grows in proportion to its aspect ratio, so
- * every photo in a row ends up the same height. --row is the target row height.
+ * Photo gallery. Wide screens: justified rows, where each item's width grows in proportion to
+ * its aspect ratio so every photo in a row ends up the same height (--row is the target height).
+ * Phones: two balanced columns, laid out in JS so lazy loading keeps working.
  */
-.gallery {
+.gallery-item {
+  position: relative;
+  margin: 0;
+  overflow: hidden;
+}
+
+.gallery-justified {
   --row: 300px;
   display: flex;
   flex-wrap: wrap;
@@ -134,19 +141,44 @@ h1, h2, h3, h4, h5, h6, p {
 }
 
 /* Soaks up the leftover space so a short last row keeps its natural size */
-.gallery::after {
+.gallery-justified::after {
   content: '';
   flex-grow: 999;
 }
 
-.gallery-item {
-  position: relative;
-  margin: 0;
-  overflow: hidden;
+.gallery-justified > .gallery-item {
   flex-grow: calc(var(--ratio) * 100);
   flex-basis: calc(var(--ratio) * var(--row));
   /* A photo left alone on a row can't balloon past ~1.8x the target height */
   max-width: calc(var(--ratio) * var(--row) * 1.8);
+}
+
+.gallery-columns {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.gallery-column {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.gallery-open {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+}
+
+.gallery-open:focus-visible {
+  outline: 2px solid #FF4700;
+  outline-offset: -2px;
 }
 
 .gallery-caption {
@@ -164,6 +196,14 @@ h1, h2, h3, h4, h5, h6, p {
   opacity: 0;
   transition: opacity 0.2s ease;
   pointer-events: none;
+}
+
+/* Details show on hover (or keyboard focus) only; touch screens see them in the full-screen viewer */
+@media (hover: hover) {
+  .gallery-item:hover .gallery-caption,
+  .gallery-item:has(.gallery-open:focus-visible) .gallery-caption {
+    opacity: 1;
+  }
 }
 
 /* Camera and settings, set like a contact-sheet note */
@@ -187,44 +227,125 @@ h1, h2, h3, h4, h5, h6, p {
   text-shadow: 0 0 6px rgb(255 110 30 / 0.8);
 }
 
-.gallery-item:hover .gallery-caption {
-  opacity: 1;
-}
-
-/* Touch screens can't hover, so captions stay visible there */
-@media (hover: none) {
-  .gallery-caption { opacity: 1; }
-}
-
 @media (max-width: 1023px) {
-  .gallery { --row: 220px; }
+  .gallery-justified { --row: 220px; }
 }
 
-/* Phones: rows get too short to mix shapes well, so stack photos in two columns instead */
 @media (max-width: 639px) {
-  .gallery {
-    display: block;
-    columns: 2;
-    column-gap: 6px;
-  }
-
-  .gallery::after { content: none; }
-
-  .gallery-item {
-    max-width: none;
-    margin-bottom: 6px;
-    break-inside: avoid;
-  }
-
+  /* Small tiles: keep the place, camera and stamp, drop the exposure details */
   .gallery-caption {
     padding: 24px 8px 6px;
     font-size: 12px;
   }
 
-  /* Small tiles: keep the place, camera and stamp, drop the exposure details */
   .gallery-settings { display: none; }
   .gallery-meta { font-size: 10px; }
   .gallery-stamp { font-size: 10px; }
+}
+
+/* Full-screen photo viewer: near-black, photo centered, details along the bottom */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: rgb(12 12 12 / 0.97);
+  color: #fff;
+  overflow: hidden;
+}
+
+.lightbox::backdrop {
+  background: transparent;
+}
+
+.lightbox[open] {
+  animation: lightbox-fade 0.2s ease;
+}
+
+.lightbox-stage {
+  position: absolute;
+  inset: 64px 72px 96px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  touch-action: pan-y pinch-zoom;
+}
+
+.lightbox-image {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  user-select: none;
+  -webkit-user-drag: none;
+  animation: lightbox-fade 0.25s ease;
+}
+
+.lightbox-button {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: rgb(255 255 255 / 0.7);
+  font-size: 18px;
+  cursor: pointer;
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.lightbox-button:hover,
+.lightbox-button:focus-visible {
+  color: #fff;
+  background: rgb(255 255 255 / 0.1);
+  outline: none;
+}
+
+.lightbox-close { top: 12px; right: 12px; }
+.lightbox-prev { left: 14px; top: 50%; translate: 0 -50%; }
+.lightbox-next { right: 14px; top: 50%; translate: 0 -50%; }
+
+.lightbox-caption {
+  position: absolute;
+  inset: auto 0 0 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 24px max(20px, env(safe-area-inset-bottom));
+  font-size: 15px;
+  line-height: 1.35;
+}
+
+.lightbox-count {
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 12px;
+  opacity: 0.6;
+}
+
+@keyframes lightbox-fade {
+  from { opacity: 0; }
+}
+
+/* Touch screens swipe between photos, so the photo gets the whole width */
+@media (hover: none) {
+  .lightbox-prev,
+  .lightbox-next { display: none; }
+
+  .lightbox-stage { inset: 56px 0 104px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lightbox[open],
+  .lightbox-image { animation: none; }
 }
 
 /* Handwritten "in Biarritz" note: the words write on, then the arrow draws toward the name */
