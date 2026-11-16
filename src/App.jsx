@@ -15,7 +15,7 @@ const projects = [
   { name: 'Todoist task view', url: 'https://www.todoist.com/inspiration/todoist-new-task-view', date: '2022' },
   { name: 'Twist redesign', url: 'https://twist.com/help/articles/the-new-and-updated-twist-HSc4VzbsE', date: '2021' },
   { name: 'Todoist templates', url: 'https://www.todoist.com/templates', date: '2020' },
-  { name: 'Todoist Sharing', url: 'https://www.todoist.com/help/todoist/features/collaborate-with-friends-or-family-in-todoist-tzkGUy', date: '2019' },
+  { name: 'Todoist better sharing', url: 'https://www.todoist.com/help/todoist/features/collaborate-with-friends-or-family-in-todoist-tzkGUy', date: '2019' },
   { name: 'Todoist pricing', url: 'https://www.todoist.com/pricing', date: '2018' },
   { name: 'Twist launch', url: 'https://medium.com/ten-timezones/twist-mindful-team-communication-28e83e661e69', date: '2017' },
   { name: 'Todoist onboarding', url: 'https://www.todoist.com/help/todoist/get-started/get-started-with-todoist-OgNNJR', date: '2016' },
