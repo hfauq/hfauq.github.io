@@ -10,7 +10,7 @@ const projects = [
   { name: 'Todoist Ramble', url: 'https://www.todoist.com/ramble', date: '2025' },
   { name: 'Todoist calendar integrations', url: 'https://www.todoist.com/help/todoist/integrations/use-the-calendar-integration-rCqwLCt3G', date: '2024' },
   { name: 'Todoist calendar views', url: 'https://www.todoist.com/help/todoist/product-updates/whats-new-january-december-2024-cueCuXy76#h_01J016TXTFXAKP8KSXYJW93BD8', date: '2024' },
-  { name: 'Todoist Teams', url: 'https://www.todoist.com/teams', date: '2023' },
+  { name: 'Todoist for teams', url: 'https://www.todoist.com/teams', date: '2023' },
   { name: 'Twist editor', url: 'https://twist.com/help/articles/whats-new-JPJ4HduH', date: '2022' },
   { name: 'Todoist task view', url: 'https://www.todoist.com/inspiration/todoist-new-task-view', date: '2022' },
   { name: 'Twist redesign', url: 'https://twist.com/help/articles/the-new-and-updated-twist-HSc4VzbsE', date: '2021' },
